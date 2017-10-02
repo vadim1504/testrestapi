@@ -33,10 +33,11 @@ public class Reqres {
         for (int i=1;i<=total_page;i++){
             response = get("/users?page="+i).then().statusCode(200).extract().asString();
             try {
-                id = JsonPath.from(response).getInt("data.find { it.first_name == 'Emma' }.id");
-                given().when().get("users/"+id).then().statusCode(200).body("data.first_name",equalTo("Emma")).body("data.last_name",equalTo("Wong")).body("data.avatar",equalTo("https://s3.amazonaws.com/uifaces/faces/twitter/olegpogodaev/128.jpg"));
+                id = JsonPath.from(response).getInt("data.find { it.first_name == 'Eve' }.id");
+                given().when().get("users/"+id).then().statusCode(200).body("data.first_name",equalTo("Eve")).body("data.last_name",equalTo("Holt")).body("data.avatar",equalTo("https://s3.amazonaws.com/uifaces/faces/twitter/marcoramires/128.jpg"));
+                break;
             }catch (NullPointerException e){
-                e.printStackTrace();
+                System.out.println("On page "+i+" there is no user with that first name");
             }
         }
     }
